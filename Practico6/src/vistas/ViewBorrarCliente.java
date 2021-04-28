@@ -7,6 +7,7 @@ package vistas;
 
 import entidades.Cliente;
 import entidades.Directorio;
+import java.util.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class ViewBorrarCliente extends javax.swing.JInternalFrame {
     Directorio lista = new Directorio();
+    
     /**
      * Creates new form viewBorrarCliente
      */
@@ -166,11 +168,22 @@ public class ViewBorrarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try{
             long dni = (Long.parseLong(jtDni.getText()));
-            Cliente borrado = lista.borrarCliente(dni);
-            jtApellido.setText(borrado.getApellido());
-            jtNombre.setText(borrado.getNombre());
-            jtCiudad.setText(borrado.getCiudad());
-            jtDireccion.setText(borrado.getDireccion());
+            TreeMap<Long, Cliente> borrado = lista.borrarCliente(dni);
+            Set<Long>clave=borrado.keySet();
+            Iterator<Long>it=clave.iterator();
+            long key=it.next();
+            String tel = String.valueOf(key);
+            String ape = borrado.get(key).getApellido();
+            String nom = borrado.get(key).getNombre();
+            String ciu = borrado.get(key).getCiudad();
+            String dir=borrado.get(key).getDireccion();
+            
+            jtTelefono.setText(tel);
+            jtApellido.setText(ape);
+            jtDireccion.setText(dir);
+            jtCiudad.setText(ciu);
+            jtNombre.setText(nom);
+          
         }catch(NumberFormatException exp){
             JOptionPane.showMessageDialog(this, "ERROR! al ingresar el número de DNI");
         }

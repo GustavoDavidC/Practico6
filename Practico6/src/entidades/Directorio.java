@@ -37,17 +37,18 @@ public class Directorio {
         return(listaClientes);
     }
     
-       public Cliente borrarCliente(Long dni){
-
+       public TreeMap <Long, Cliente> borrarCliente(Long dni){
+        
+        TreeMap <Long,Cliente> cli = new TreeMap<>();
+        
         Set <Long> claves = lista.keySet();
         
-        Iterator <Long> it = claves.iterator();
-        int i=0;
-        while(it.hasNext()&&i==0){
-            Long key=it.next();
-            if(lista.get(key).getDni().equals(dni)){
-                i=1;
-                return(lista.remove(key));
+        for(Long tel:claves){
+            if(lista.get(tel).getDni().equals(dni)){
+            
+            cli.put(tel, lista.get(tel));
+            lista.remove(tel);
+            return(cli);
             }
         }
         return(null);
