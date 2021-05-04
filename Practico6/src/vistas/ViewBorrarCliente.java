@@ -168,8 +168,10 @@ public class ViewBorrarCliente extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         try{
             long dni = (Long.parseLong(jtDni.getText()));
+          
             TreeMap<Long, Cliente> borrado = lista.borrarCliente(dni);
-            Set<Long>clave=borrado.keySet();
+            if(!(borrado==null)){
+                Set<Long>clave=borrado.keySet();
             Iterator<Long>it=clave.iterator();
             long key=it.next();
             String tel = String.valueOf(key);
@@ -183,6 +185,10 @@ public class ViewBorrarCliente extends javax.swing.JInternalFrame {
             jtDireccion.setText(dir);
             jtCiudad.setText(ciu);
             jtNombre.setText(nom);
+            }else{
+                JOptionPane.showMessageDialog(this,"El dni ingresado no existe");
+            }
+            
           
         }catch(NumberFormatException exp){
             JOptionPane.showMessageDialog(this, "ERROR! al ingresar el número de DNI");
